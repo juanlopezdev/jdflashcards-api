@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,14 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class,'register']);   
+Route::get('test', function () {
+  return response()->json(['message' => 'Hello World!']);
+});
 
-Route::middleware('auth:api')->apiResource('/subjects', SubjectController::class);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware('auth:api')->group(function () {
+  Route::apiResource('/subjects', SubjectController::class);
+  Route::apiResource('/cards', CardController::class);
+});
