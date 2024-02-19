@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
@@ -23,6 +24,7 @@ class SubjectController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'state' => 'integer',
+            'user_id' => 'required|integer',
         ]);
 
         $subject = Subject::create($request->all());
@@ -59,5 +61,15 @@ class SubjectController extends Controller
     {
         $subject->delete();
         return response()->json(null, 204);
+    }
+
+    /**
+     * Get the subjects by the logged user.
+     */
+    public function subjectsByLoggedUser()
+    {
+        $userId = Auth::id();
+        $subjects = Subject::where('user_id', $userId)->get();
+        return response()->json($subjects);
     }
 }
