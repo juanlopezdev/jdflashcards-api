@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -65,5 +66,11 @@ class CardController extends Controller
     {
         $card->delete();
         return response()->json(null, 204);
+    }
+
+    public function cardsBySubject(Subject $subject)
+    {
+        $cards = Card::where('subject_id', $subject->id)->get();
+        return response()->json($cards);
     }
 }

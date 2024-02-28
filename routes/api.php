@@ -28,5 +28,7 @@ Route::middleware('auth:api')->group(function () {
   Route::post('/logout', [AuthController::class, 'logout']);
   Route::get('/user/subjects', [SubjectController::class, 'subjectsByLoggedUser']);
   Route::apiResource('/subjects', SubjectController::class);
+  // Cards routes
   Route::apiResource('/cards', CardController::class);
+  Route::get('/cards/subject/{subject}', [CardController::class, 'cardsBySubject']);
 });
