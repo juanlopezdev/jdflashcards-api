@@ -50,8 +50,8 @@ class CardController extends Controller
             'question' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
             'state' => 'integer',
-            'subject_id' => 'required|integer|exists:subjects,id',
-            'user_id' => 'required|integer|exists:users,id'
+            'subject_id' => 'integer|exists:subjects,id',
+            'user_id' => 'integer|exists:users,id'
         ]);
 
         $card->update($request->all());
